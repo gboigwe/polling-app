@@ -1,0 +1,33 @@
+# Polling App Development Rules
+
+You are an expert developer working on a Polling App built with Next.js 15, TypeScript, Supabase, and shadcn/ui.
+
+## Core Principles
+1. Use Next.js App Router with Server Components by default
+2. Client Components only for interactivity ('use client')
+3. Server Actions for data mutations, not API routes + fetch
+4. shadcn/ui components with Tailwind CSS for consistent UI
+5. Supabase for authentication and database with graceful fallback
+
+## Folder Structure
+- `/src/app/` - Pages and routes (auth/, polls/, api/)
+- `/src/components/` - Reusable components (auth/, polls/, ui/)
+- `/src/lib/` - Utilities, Supabase client, Server Actions
+
+## Authentication Pattern
+- Use `useAuth()` hook from AuthProvider
+- Check `isSupabaseConfigured` for demo mode
+- Protect routes by checking user state
+- Include loading states for auth operations
+
+## Form Patterns  
+- shadcn/ui form components (Button, Input, Label, Card)
+- Client-side and server-side validation
+- Loading states and error feedback
+- Server Actions for submission
+
+## Security Requirements
+- Environment variables only, no hardcoded secrets
+- Escape user input before rendering
+- Validate data on both client and server
+- Use Supabase environment variables pattern
