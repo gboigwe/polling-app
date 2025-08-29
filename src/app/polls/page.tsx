@@ -38,7 +38,7 @@ export default function PollsPage() {
             </Button>
           </div>
         </div>
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white rounded-lg shadow p-6 mb-6">
           <div className="flex justify-between items-center mb-4">
             <div>
               <p className="text-gray-600 mb-2">Welcome to the polling application dashboard!</p>
@@ -48,14 +48,28 @@ export default function PollsPage() {
               Create Poll
             </Button>
           </div>
-          <div className="space-y-2">
-            <p className="text-sm"><strong>Available actions:</strong></p>
-            <ul className="text-sm text-gray-600 space-y-1">
-              <li>• View existing polls</li>
-              <li>• Create new polls</li>
-              <li>• Vote on polls</li>
-              <li>• Share polls via QR codes</li>
-            </ul>
+        </div>
+
+        <div className="bg-white rounded-lg shadow p-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">Available Polls</h2>
+          <div className="space-y-3">
+            <div className="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer" onClick={() => router.push('/polls/1')}>
+              <h3 className="font-medium text-gray-900">What is your favorite programming language?</h3>
+              <p className="text-sm text-gray-500 mt-1">Created on {new Date().toLocaleDateString()}</p>
+              <div className="flex items-center justify-between mt-2">
+                <span className="text-xs text-gray-400">4 options • 18 votes</span>
+                <Button variant="outline" size="sm">View & Vote</Button>
+              </div>
+            </div>
+            
+            <div className="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer" onClick={() => router.push('/polls/2')}>
+              <h3 className="font-medium text-gray-900">Best framework for web development?</h3>
+              <p className="text-sm text-gray-500 mt-1">Created on {new Date().toLocaleDateString()}</p>
+              <div className="flex items-center justify-between mt-2">
+                <span className="text-xs text-gray-400">3 options • 12 votes</span>
+                <Button variant="outline" size="sm">View & Vote</Button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
