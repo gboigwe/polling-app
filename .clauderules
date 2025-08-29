@@ -1,0 +1,101 @@
+# Polling App - Project Rules
+
+## Project Overview: Polling App with QR Code Sharing
+You are an expert full-stack developer working on the Polling App codebase. Your primary goal is to build a web application that allows users to register, create polls, and share them via unique links and QR codes for others to vote on.
+
+Adhere strictly to the rules, patterns, and conventions outlined in this document to ensure code quality, consistency, and maintainability.
+
+## Technology Stack
+The project uses the following technologies. Do not introduce new libraries or frameworks without explicit instruction.
+
+- **Language:** TypeScript
+- **Main Framework:** Next.js 15 (App Router)
+- **Database & Auth:** Supabase
+- **Styling:** Tailwind CSS with shadcn/ui components
+- **State Management:** Primarily Server Components for server state. Use useState or useReducer for local component state in Client Components.
+- **API Communication:** Use Next.js Server Actions for mutations (creating polls, voting). Fetch data in Server Components using the Supabase client.
+- **Form Handling:** react-hook-form with shadcn/ui form components
+- **Utility Libraries:** qrcode.react for generating QR codes (when implemented)
+
+## Architecture & Code Style
+
+### Directory Structure
+Follow the established Next.js App Router structure:
+- `/src/app/` for routes and pages
+- `/src/components/ui/` for shadcn/ui components
+- `/src/components/` for custom, reusable components
+- `/src/components/auth/` for authentication-related components
+- `/src/lib/` for Supabase client setup, utility functions, and Server Actions
+- `/src/app/api/` for API route handlers (use sparingly, prefer Server Actions)
+
+### Component Design
+- **Prefer Server Components** for fetching and displaying data
+- **Use Client Components** ('use client') only when interactivity (hooks, event listeners) is required
+- **Authentication Components** should use the AuthProvider context from `/src/components/auth/AuthProvider.tsx`
+- **Forms** should use shadcn/ui components (Button, Input, Label, Card) with proper validation
+
+### Naming Conventions
+- **Component files:** PascalCase (e.g., `CreatePollForm.tsx`, `LoginForm.tsx`)
+- **Page files:** lowercase (e.g., `page.tsx`, `layout.tsx`)
+- **Utility and action functions:** camelCase (e.g., `submitVote.ts`, `createPoll.ts`)
+- **Types and interfaces:** PascalCase with descriptive names (e.g., `Poll`, `Vote`, `AuthContextType`)
+
+## Code Patterns to Follow
+
+### Authentication
+- Use the existing `useAuth()` hook from `/src/components/auth/AuthProvider.tsx`
+- Handle both Supabase authentication and demo mode gracefully
+- Protected routes should check `user` state and redirect unauthenticated users to `/auth/login`
+- Always include loading states during authentication operations
+
+### Forms and Data Submission
+- Use Server Actions for form submissions, not API routes with fetch
+- Server Actions should be in `/src/lib/actions/` directory with 'use server' directive
+- Form validation should happen both client-side and server-side
+- Use shadcn/ui form components with proper error handling
+- Include loading states and success/error feedback
+- Always call `revalidatePath()` after mutations to refresh cached data
+
+### Supabase Integration
+- Import from `/src/lib/supabase.ts` which handles configuration gracefully
+- Always check `isSupabaseConfigured` before making Supabase calls
+- Provide fallback behavior for demo mode when Supabase is not configured
+- Use Server Components for data fetching when possible
+
+### Error Handling
+- Use try/catch blocks within Server Actions and Route Handlers
+- Display user-friendly error messages in forms
+- Use Next.js error.tsx files for handling errors within route segments
+- Log errors appropriately but don't expose sensitive information to users
+
+## Security & Environment
+- **Never hardcode secrets** - use environment variables (.env.local)
+- **Supabase keys:** Access via `process.env.NEXT_PUBLIC_SUPABASE_URL` and `process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- **Always escape user input** before rendering
+- **Validate data** both on client and server sides
+
+## UI/UX Guidelines
+- Use Tailwind utility classes consistently
+- Implement responsive design patterns
+- Include loading states for async operations
+- Provide clear feedback for user actions (success/error messages)
+- Use shadcn/ui components for consistency
+- Maintain accessibility standards (proper labels, ARIA attributes)
+
+## Development Commands
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run type-check` - Run TypeScript checks
+
+## Verification Checklist
+Before finalizing code, verify:
+- ✅ Uses Next.js App Router and Server Components for data fetching
+- ✅ Server Actions used for data mutations (forms)
+- ✅ Supabase client used for all database interactions
+- ✅ shadcn/ui components used for UI where appropriate
+- ✅ Environment variables used for secrets, not hardcoded values
+- ✅ Proper TypeScript types defined and used
+- ✅ Loading states and error handling implemented
+- ✅ Responsive design with Tailwind CSS
