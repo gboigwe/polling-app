@@ -39,7 +39,15 @@ export default function PollsPage() {
           </div>
         </div>
         <div className="bg-white rounded-lg shadow p-6">
-          <p className="text-gray-600 mb-4">Welcome to the polling application dashboard!</p>
+          <div className="flex justify-between items-center mb-4">
+            <div>
+              <p className="text-gray-600 mb-2">Welcome to the polling application dashboard!</p>
+              <p className="text-sm text-gray-500">Create and manage your polls</p>
+            </div>
+            <Button onClick={() => router.push('/polls/new')}>
+              Create Poll
+            </Button>
+          </div>
           <div className="space-y-2">
             <p className="text-sm"><strong>Available actions:</strong></p>
             <ul className="text-sm text-gray-600 space-y-1">
